@@ -4,3 +4,5 @@
 *.terraform
 *.mod
 *.sum
+*.tfstate
+*.tfstate.*

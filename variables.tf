@@ -30,3 +30,8 @@ variable "network_acl_id" {
   description = "the aws network acl"
   type = string
 }
+
+variable "security_group_sg" {
+  type = string
+  description = "security group of the vpc"
+}

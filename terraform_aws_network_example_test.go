@@ -18,6 +18,7 @@ func TestTerraformAwsNetworkExample(t *testing.T) {
 	privateSubnetCidr := "10.10.1.0/24"
 	publicSubnetCidr := "10.10.2.0/24"
 	networkAclIdd := ""
+	networkSecurityGroupp := ""
 
 	terraformOptions := terraform.WithDefaultRetryableErrors(t, &terraform.Options{
 		TerraformDir: ".",
@@ -28,6 +29,7 @@ func TestTerraformAwsNetworkExample(t *testing.T) {
 			"public_subnet_cidr":  publicSubnetCidr,
 			"aws_region":          awsRegion,
 			"network_acl_id":      networkAclIdd,
+			"security_group_sg":   networkSecurityGroupp,
 		},
 	})
 
@@ -40,6 +42,8 @@ func TestTerraformAwsNetworkExample(t *testing.T) {
 	vpcId := terraform.Output(t, terraformOptions, "terratest_vpc_id")
 	networkAclId := terraform.Output(t, terraformOptions, "network_acl_id")
 	network_acl_id := networkAclId
+	networkSecurityGroup := terraform.Output(t, terraformOptions, "security_group_sg")
+	security_group_sg := networkSecurityGroup
 
 	subnets := aws.GetSubnetsForVpc(t, vpcId, awsRegion)
 
@@ -49,4 +53,5 @@ func TestTerraformAwsNetworkExample(t *testing.T) {
 
 	assert.False(t, aws.IsPublicSubnet(t, privateSubnetId, awsRegion))
 	assert.Equal(t, network_acl_id, networkAclId)
+	assert.Equal(t, security_group_sg, networkSecurityGroup)
 }

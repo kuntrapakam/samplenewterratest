@@ -16,3 +16,7 @@ output "private_subnet_id" {
 output "network_acl_id" {
   value = aws_network_acl.terratestacl.id
 }
+
+output "security_group_sg" {
+  value = aws_security_group.security_group
+}
